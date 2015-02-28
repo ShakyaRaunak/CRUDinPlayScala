@@ -1,0 +1,146 @@
+@(registerForm: Form[CustomerUser])
+@import play.api.Play
+
+@import helper._
+@import helper.twitterBootstrap._
+
+<html>
+    <head>
+        <title>Register</title>
+        <style type="text/css">
+        body {
+        margin : 0 ;
+        font-family : Helvetica, Verdana, 'Times New Roman', Arial ;
+        }
+
+        h1 {
+        font-size : 24 px ;
+        font-color : #999999 ;
+        background-color : #aaaaaa ;
+        padding : 8 px 10 px ;
+        text-align : center ;
+        }
+
+        h4 {
+        font-size : 18 px ;
+        font-color : #999999 ;
+        padding : 0 px 10 px ;
+        margin-top : 0 px ;
+        margin-bottom : 0 px ;
+        }
+
+        p {
+        padding : 0 px 10 px ;
+        }
+
+        .form-wrapper {
+        margin-top : 40 px ;
+        }
+
+        .form-wrapper form {
+        text-align : center ;
+        }
+
+        .form-wrapper div {
+        text-align : left ;
+        margin : 5 px 0 px 10 px ;
+        }
+
+        .form-wrapper fieldset legend {
+        font-size : 24 px ;
+        font-color : #999999 ;
+        letter-spacing : 1.5 px ;
+        }
+
+        .form-wrapper form fieldset {
+        border : 1 px solid #bbbbbb ;
+        border-radius : 10 px ;
+        padding : 20 px 32 px 10 px ;
+        display : inline-block ;
+        }
+
+        .form-wrapper input[ type = "text" ], input[ type = "password" ], input[ type = "email" ] {
+        border : 1 px solid #cccccc ;
+        border-radius : 5 px ;
+        padding : 7 px 8 px ;
+        }
+
+        .form-wrapper input[ type = "text" ] : focus, input[ type = "password" ] : focus, input[ type = "email" ] : focus {
+        border : 1 px solid #999999 ;
+        box-shadow : 3 px 2 px 2 px #999999 ;
+        }
+
+        .form-wrapper div : last-child {
+        margin-top : 10 px !important ;
+        text-align : right ;
+        }
+
+        .form-wrapper input[ type = "submit" ] {
+        font-size : 16 px ;
+        color : #ffffff ;
+        padding : 7 px 18 px ;
+        background-color : #336699 ;
+        border-radius : 12 px ;
+        cursor : pointer ;
+        letter-spacing : 1 px ;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome to CRUD in Play-Scala App</h1>
+
+        <div class="form-wrapper">
+            <form action="/register" method="POST">
+                <fieldset>
+                    <legend>Registration Form</legend>
+
+                    <div>
+                        <label for="">First Name</label>
+                    </div>
+                    <div>
+                        <input type="text" name="firstName"/>
+                    </div>
+
+                    <div>
+                        <label for="">Last Name</label>
+                    </div>
+                    <div>
+                        <input type="text" name="lastName"/>
+                    </div>
+
+                    <div>
+                        <label for="">Company</label>
+                    </div>
+                    <div>
+                        <input type="text" name="company"/>
+                    </div>
+
+                    <div>
+                        <label for="">Email</label>
+                    </div>
+                    <div>
+                        <input type="email" name="email"/>
+                    </div>
+
+                    <div>
+                        <label for="">User Name</label>
+                    </div>
+                    <div>
+                        <input type="text" name="username"/>
+                    </div>
+
+                    <div>
+                        <label for="">Password</label>
+                    </div>
+                    <div>
+                        <input type="password" name="password"/>
+                    </div>
+
+                    <div>
+                        <input type="submit" class="button" value="Register"/>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>
