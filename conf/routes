@@ -9,8 +9,8 @@ GET        /                    controllers.Application.index
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
 
 # Registration
-GET        /register            controllers.RegisterController.form
-POST       /register            controllers.RegisterController.register
+GET        /register            controllers.UserController.form
+#POST       /register            controllers.UserController.createNewUser
 
 # Login
 GET        /login               controllers.LoginController.form

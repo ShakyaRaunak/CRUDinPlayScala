@@ -1,4 +1,4 @@
-@(registerForm: Form[CustomerUser])
+@(registerForm: Form[User])
 @import play.api.Play
 
 @import helper._
@@ -90,11 +90,11 @@
         <h1>Welcome to CRUD in Play-Scala App</h1>
 
         <div class="form-wrapper">
-            <form action="/register" method="POST">
+            <form action="/createNewUser" method="POST">
                 <fieldset>
-                    <legend>Registration Form</legend>
+                    <legend>Sign Up</legend>
 
-                    <div>
+                    <div class="">
                         <label for="">First Name</label>
                     </div>
                     <div>

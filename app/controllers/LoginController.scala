@@ -13,15 +13,16 @@ import play.api.Play.current
 
 object LoginController extends Controller {
 
-  val loginForm: Form[SecUser] = Form(
+  val loginForm: Form[User] = Form(
     mapping(
-      //"firstName" -> text,
-      //"lastName" -> text,
-      //"company" -> text,
-      //"email" -> email,
+      "firstName" -> text,
+      "lastName" -> text,
+      "email" -> email,
+      "phone" -> text,
+      "company" -> text,
       "username" -> text,
       "password" -> text
-    )(SecUser.apply)(SecUser.unapply)
+    )(User.apply)(User.unapply)
   )
 
   def form = Action {
