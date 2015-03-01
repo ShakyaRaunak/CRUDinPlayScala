@@ -1,6 +1,6 @@
-@(message: String)
+@(message: String, signInForm: Form[SignInData], signUpForm: Form[User]))
 
-@main("Play-Scala App") {
+@main("Play-Scala App", signInForm, signUpForm) {
 
     @play20.welcome(message)
 

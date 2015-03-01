@@ -13,42 +13,4 @@ import play.api.Play.current
 
 object LoginController extends Controller {
 
-  val signInForm: Form[User] = Form(
-    mapping(
-      "firstName" -> text,
-      "lastName" -> text,
-      "email" -> email,
-      "phone" -> text,
-      "company" -> text,
-      "username" -> text,
-      "password" -> text
-    )(User.apply)(User.unapply)
-  )
-
-  def form = Action {
-    Ok(html.login.form(signInForm))
-  }
-
-  def signin = Action {
-    implicit request =>
-      signInForm.bindFromRequest.fold(
-        errors => BadRequest(html.login.form(errors)),
-        user => {
-          DB.withConnection {
-            implicit c =>
-              val resultSet = SQL(
-                """
-                  SELECT * FROM User WHERE username = {username} AND password = {password}
-                """
-              ).on(
-                'username -> user.username,
-                'password -> user.password
-              )
-              println("Here: " + resultSet)
-          }
-          Ok(html.home.home(user))
-        }
-      )
-  }
-
 }

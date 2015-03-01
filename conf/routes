@@ -13,5 +13,4 @@ GET         /signup              controllers.UserController.form
 POST        /signup              controllers.UserController.createNewUser
 
 # Login
-GET         /signin              controllers.LoginController.form
-POST        /signin              controllers.LoginController.signin
+POST        /signin              controllers.UserController.authenticate

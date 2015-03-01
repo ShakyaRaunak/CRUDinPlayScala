@@ -25,6 +25,13 @@ object UserController extends Controller {
     )(User.apply)(User.unapply)
   )
 
+  val signInForm: Form[SignInData] = Form(
+    mapping(
+      "email" -> email,
+      "password" -> text
+    )(SignInData.apply)(SignInData.unapply)
+  )
+
   def form = Action {
     Ok(html.register.form(signUpForm))
   }
@@ -63,6 +70,38 @@ object UserController extends Controller {
    */
   def updateNewUser(user: User): User = {
     user
+  }
+
+
+  /**
+   * Authenticate a User.
+   */
+  def authenticate = Action {
+    implicit request =>
+      signInForm.bindFromRequest.fold(
+        errors => BadRequest(html.login.form(errors)),
+        signInData =>
+          DB.withConnection {
+            implicit c =>
+              val simpleSql = SQL(
+                """
+                  SELECT COUNT(*) FROM User WHERE email = {email} AND password = {password}
+                """
+              ).on(
+                'email -> signInData.email,
+                'password -> signInData.password
+              )
+
+              val count: Long = simpleSql.as(SqlParser.scalar[Long].single)
+              if (count > 1) {
+                throw new IllegalStateException("More than one user with same email found!!!")
+              }
+              if (count == 1) {
+                Ok(html.home.home("Logged in"))
+              }
+              Ok(html.home.home("No"))
+          }
+      )
   }
 
 }

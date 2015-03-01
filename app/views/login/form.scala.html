@@ -1,4 +1,4 @@
-@(signInForm: Form[User])
+@(signInForm: Form[SignInData])
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -19,7 +19,6 @@
         <div class="container">
             <h1 class="">Welcome to CRUD in Play-Scala App</h1>
 
-            @helper.form(routes.LoginController.signin) {
                 <fieldset>
                     <legend>Sign In</legend>
                     <div class="form-group">
@@ -36,7 +35,6 @@
                         <input type="submit" class="btn btn-success" value="Sign In"/>
                     </div>
                 </fieldset>
-            }
         </div>
     </body>
 </html>
