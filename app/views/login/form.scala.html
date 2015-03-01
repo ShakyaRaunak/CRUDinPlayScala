@@ -1,114 +1,33 @@
-@(registerForm: Form[User])
+@(signInForm: Form[User])
 
 @import helper._
 @import helper.twitterBootstrap._
 
 <html>
     <head>
-        <title>Login</title>
-        <style type="text/css">
-        body {
-        margin: 0;
-        font-family: Helvetica, Verdana, 'Times New Roman', Arial;
-        }
-
-        h1 {
-        font-size: 24px;
-        font-color: #999999;
-        background-color: #aaaaaa;
-        padding: 8px 10px;
-        text-align: center;
-        }
-
-        h4 {
-        font-size: 18px;
-        font-color: #999999;
-        padding: 0px 10px;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        }
-
-        p {
-        padding: 0px 10px;
-        }
-
-        .form-wrapper {
-        margin-top: 80px;
-        }
-
-        .form-wrapper form{
-        text-align: center;
-        }
-
-        .form-wrapper div {
-        text-align: left;
-        margin: 5px 0px 10px;
-        }
-
-        .form-wrapper fieldset legend {
-        font-size: 24px;
-        font-color: #999999;
-        letter-spacing: 1.5px;
-        }
-
-        .form-wrapper form fieldset {
-        border: 1px solid #bbbbbb;
-        border-radius: 10px;
-        padding: 20px 32px;
-        display: inline-block;
-        }
-
-        .form-wrapper input[type="text"], input[type="password"] {
-        border: 1px solid #cccccc;
-        border-radius: 5px;
-        padding: 7px 8px;
-        }
-
-        .form-wrapper input[type="text"]:focus, input[type="password"]:focus {
-        border: 1px solid #999999;
-        box-shadow: 3px 2px 2px #999999;
-        }
-
-        .form-wrapper div:last-child {
-        margin-top: 20px !important;
-        text-align: right;
-        }
-
-        .form-wrapper input[type="submit"] {
-        font-size: 16px;
-        color: #ffffff;
-        padding: 7px 18px;
-        background-color: #336699;
-        border-radius: 12px;
-        cursor: pointer;
-        letter-spacing: 1px;
-        }
-        </style>
+        <title>Sign In</title>
     </head>
     <body>
-        <h1>Welcome to CRUD in Play-Scala App</h1>
+        <h1 class="">Welcome to CRUD in Play-Scala App</h1>
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.min.css")" type="text/css">
 
-        <div class="form-wrapper">
-            <form action="/login" method="POST">
-                <fieldset>
-                    <legend>Login Form</legend>
-                    <div>
-                        <label for="">Username</label>
-                    </div>
-                    <div>
-                        <input type="text" name="username"/>
-                    </div>
-                    <div>
-                        <label for="">Password</label>
-                    </div>
-                    <div>
-                        <input type="password" name="password"/>
-                    </div>
-                    <div>
-                        <input type="submit" class="button" value="Login"/>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
+        <form class="navbar-form" action="/sigin" method="POST">
+            <fieldset>
+                <legend>Sign In</legend>
+                <div class="form-group">
+                    <label for="">Username</label>
+                    <input type="text" name="username"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="password" name="password"/>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Sign In"/>
+                </div>
+            </fieldset>
+        </form>
     </body>
 </html>

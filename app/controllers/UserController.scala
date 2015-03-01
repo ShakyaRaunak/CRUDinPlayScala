@@ -13,7 +13,7 @@ import play.api.db.DB
 
 object UserController extends Controller {
 
-  val registerForm: Form[User] = Form(
+  val signUpForm: Form[User] = Form(
     mapping(
       "firstName" -> text,
       "lastName" -> text,
@@ -26,40 +26,43 @@ object UserController extends Controller {
   )
 
   def form = Action {
-    Ok(html.register.form(registerForm))
+    Ok(html.register.form(signUpForm))
   }
 
   /**
    * Create a new User instance
    */
-  def createNewUser(user: User): User = {
-    DB.withConnection {
-      implicit connection =>
-        SQL(
-          """
-            INSERT INTO User VALUES (
-             {firstName}, {lastName}, {email}, {phone}, {company}, {username}, {password}
-            )
-          """
-        ).on(
-          'firstName -> user.firstName,
-          'lastName -> user.lastName,
-          'email -> user.email,
-          'phone -> user.phone,
-          'company -> user.company,
-          'username -> user.username,
-          'password -> user.password
-        ).executeUpdate()
-
-        user
-    }
+  def createNewUser = Action {
+    implicit request =>
+      signUpForm.bindFromRequest.fold(
+        errors => BadRequest(html.register.form(errors)),
+        user => {
+          DB.withConnection {
+            implicit c =>
+              SQL(
+                """
+                INSERT INTO User(firstName, lastName, email, phone, company, username, password) VALUES
+                  ({firstName}, {lastName}, {email}, {phone}, {company}, {username}, {password})
+                """).on(
+                'firstName -> user.firstName,
+                'lastName -> user.lastName,
+                'email -> user.email,
+                'phone -> user.phone,
+                'company -> user.company,
+                'username -> user.username,
+                'password -> user.password
+              ).executeUpdate()
+          }
+          Ok(html.register.summary(user))
+        }
+      )
   }
 
   /**
    * Update the existing User instance
    */
   def updateNewUser(user: User): User = {
-     user
+    user
   }
 
 }

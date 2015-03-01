@@ -13,7 +13,7 @@ import play.api.Play.current
 
 object LoginController extends Controller {
 
-  val loginForm: Form[User] = Form(
+  val signInForm: Form[User] = Form(
     mapping(
       "firstName" -> text,
       "lastName" -> text,
@@ -26,12 +26,13 @@ object LoginController extends Controller {
   )
 
   def form = Action {
-    Ok(html.login.form(loginForm))
+    Ok(html.login.form(signInForm))
   }
 
-  def login = Action {
+  def signin = Action {
+
     implicit request =>
-      loginForm.bindFromRequest.fold(
+      signInForm.bindFromRequest.fold(
         errors => BadRequest(html.login.form(errors)),
         user => {
           DB.withConnection {
@@ -46,6 +47,7 @@ object LoginController extends Controller {
           Ok(html.home.home(user))
         }
       )
+    //println("Hello World")
   }
 
 }

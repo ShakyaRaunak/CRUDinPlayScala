@@ -1,146 +1,59 @@
-@(registerForm: Form[User])
+@(signUpForm: Form[User])
 @import play.api.Play
 
 @import helper._
 @import helper.twitterBootstrap._
+@import play.api.Play.current
 
 <html>
     <head>
-        <title>Register</title>
-        <style type="text/css">
-        body {
-        margin : 0 ;
-        font-family : Helvetica, Verdana, 'Times New Roman', Arial ;
-        }
-
-        h1 {
-        font-size : 24 px ;
-        font-color : #999999 ;
-        background-color : #aaaaaa ;
-        padding : 8 px 10 px ;
-        text-align : center ;
-        }
-
-        h4 {
-        font-size : 18 px ;
-        font-color : #999999 ;
-        padding : 0 px 10 px ;
-        margin-top : 0 px ;
-        margin-bottom : 0 px ;
-        }
-
-        p {
-        padding : 0 px 10 px ;
-        }
-
-        .form-wrapper {
-        margin-top : 40 px ;
-        }
-
-        .form-wrapper form {
-        text-align : center ;
-        }
-
-        .form-wrapper div {
-        text-align : left ;
-        margin : 5 px 0 px 10 px ;
-        }
-
-        .form-wrapper fieldset legend {
-        font-size : 24 px ;
-        font-color : #999999 ;
-        letter-spacing : 1.5 px ;
-        }
-
-        .form-wrapper form fieldset {
-        border : 1 px solid #bbbbbb ;
-        border-radius : 10 px ;
-        padding : 20 px 32 px 10 px ;
-        display : inline-block ;
-        }
-
-        .form-wrapper input[ type = "text" ], input[ type = "password" ], input[ type = "email" ] {
-        border : 1 px solid #cccccc ;
-        border-radius : 5 px ;
-        padding : 7 px 8 px ;
-        }
-
-        .form-wrapper input[ type = "text" ] : focus, input[ type = "password" ] : focus, input[ type = "email" ] : focus {
-        border : 1 px solid #999999 ;
-        box-shadow : 3 px 2 px 2 px #999999 ;
-        }
-
-        .form-wrapper div : last-child {
-        margin-top : 10 px !important ;
-        text-align : right ;
-        }
-
-        .form-wrapper input[ type = "submit" ] {
-        font-size : 16 px ;
-        color : #ffffff ;
-        padding : 7 px 18 px ;
-        background-color : #336699 ;
-        border-radius : 12 px ;
-        cursor : pointer ;
-        letter-spacing : 1 px ;
-        }
-        </style>
+        <title>Sign up</title>
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.min.css")" type="text/css">
     </head>
     <body>
-        <h1>Welcome to CRUD in Play-Scala App</h1>
+        <h1 class="">Welcome to CRUD in Play-Scala App</h1>
 
-        <div class="form-wrapper">
-            <form action="/createNewUser" method="POST">
-                <fieldset>
-                    <legend>Sign Up</legend>
+        <div class="navbar-form">
+        @helper.form(routes.UserController.createNewUser) {
+            <fieldset>
+                <legend>Sign Up</legend>
 
-                    <div class="">
-                        <label for="">First Name</label>
-                    </div>
-                    <div>
-                        <input type="text" name="firstName"/>
-                    </div>
+                <div class="form-horizontal row">
+                    <label for="" class="col-lg-2">First Name</label>
+                    <input type="text" name="firstName" class="col-lg-3"/>
+                </div>
 
-                    <div>
-                        <label for="">Last Name</label>
-                    </div>
-                    <div>
-                        <input type="text" name="lastName"/>
-                    </div>
+                <div class="form-horizontal row">
+                    <label for="" class="col-lg-2">Last Name</label>
+                    <input type="text" name="lastName" class="col-lg-3"/>
+                </div>
 
-                    <div>
-                        <label for="">Company</label>
-                    </div>
-                    <div>
-                        <input type="text" name="company"/>
-                    </div>
+                <div class="form-horizontal row">
+                    <label for="" class="col-lg-2">Company</label>
+                    <input type="text" name="company" class="col-lg-3"/>
+                </div>
 
-                    <div>
-                        <label for="">Email</label>
-                    </div>
-                    <div>
-                        <input type="email" name="email"/>
-                    </div>
+                <div class="form-horizontal row">
+                    <label for="" class="col-lg-2">Email</label>
+                    <input type="email" name="email" class="col-lg-3"/>
+                </div>
 
-                    <div>
-                        <label for="">User Name</label>
-                    </div>
-                    <div>
-                        <input type="text" name="username"/>
-                    </div>
+                <div class="form-horizontal row">
+                    <label for="" class="col-lg-2">User Name</label>
+                    <input type="text" name="username" class="col-lg-3"/>
+                </div>
 
-                    <div>
-                        <label for="">Password</label>
-                    </div>
-                    <div>
-                        <input type="password" name="password"/>
-                    </div>
+                <div class="form-horizontal row">
+                    <label for="" class="col-lg-2">Password</label>
+                    <input type="password" name="password" class="col-lg-3"/>
+                </div>
 
-                    <div>
-                        <input type="submit" class="button" value="Register"/>
-                    </div>
-                </fieldset>
-            </form>
+                <div class="form-horizontal row">
+                    <div class="col-lg-2"></div>
+                    <input type="submit" class="btn btn-primary" value="Sign Up"/>
+                </div>
+            </fieldset>
+        }
         </div>
     </body>
 </html>
