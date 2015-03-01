@@ -5,12 +5,53 @@
 <html>
     <head>
         <title>@title</title>
+
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.css")" type="text/css">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+
+        <script src="@routes.Assets.at("javascripts/jquery-1.11.2.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/angular-v1.3.14.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/application.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("stylesheets/bootstrap-3.3.2/js/bootstrap.min.js")" type="text/javascript"></script>
+
     </head>
     <body>
-        <a href="@routes.UserController.form">Sign Up</a>
-        <a href="@routes.LoginController.form">Sign In</a>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">My Play-Scala App</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" placeholder="Password">
+                        </div>
+                        <button class="btn btn-success" type="submit">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+
+        <a href="@routes.UserController.form" class="label label-info">Sign Up</a>
+        <a href="@routes.LoginController.form" class="label label-info">Sign In</a>
+        <div class="jumbotron">
+            <div class="container">
+                <div class="">
+                    <h1>Project Description</h1>
+                    <p>This is a simple application devleoped using Scala and Play framework.</p>
+                    <p>
+                        <a class="btn btn-primary btn-large">
+                Learn more
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>

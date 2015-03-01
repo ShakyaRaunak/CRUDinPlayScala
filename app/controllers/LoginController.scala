@@ -30,7 +30,6 @@ object LoginController extends Controller {
   }
 
   def signin = Action {
-
     implicit request =>
       signInForm.bindFromRequest.fold(
         errors => BadRequest(html.login.form(errors)),
@@ -39,15 +38,17 @@ object LoginController extends Controller {
             implicit c =>
               val resultSet = SQL(
                 """
-                  SELECT * FROM User
+                  SELECT * FROM User WHERE username = {username} AND password = {password}
                 """
+              ).on(
+                'username -> user.username,
+                'password -> user.password
               )
               println("Here: " + resultSet)
           }
           Ok(html.home.home(user))
         }
       )
-    //println("Hello World")
   }
 
 }

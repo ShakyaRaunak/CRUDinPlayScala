@@ -3,31 +3,40 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
         <title>Sign In</title>
-    </head>
-    <body>
-        <h1 class="">Welcome to CRUD in Play-Scala App</h1>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.min.css")" type="text/css">
 
-        <form class="navbar-form" action="/sigin" method="POST">
-            <fieldset>
-                <legend>Sign In</legend>
-                <div class="form-group">
-                    <label for="">Username</label>
-                    <input type="text" name="username"/>
-                </div>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="">Welcome to CRUD in Play-Scala App</h1>
 
-                <div class="form-group">
-                    <label for="">Password</label>
-                    <input type="password" name="password"/>
-                </div>
+            @helper.form(routes.LoginController.signin) {
+                <fieldset>
+                    <legend>Sign In</legend>
+                    <div class="form-group">
+                        <label for="">Username</label>
+                        <input type="text" name="uname"/>
+                    </div>
 
-                <div class="form-group">
-                    <input type="submit" class="btn btn-success" value="Sign In"/>
-                </div>
-            </fieldset>
-        </form>
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" name="pass"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Sign In"/>
+                    </div>
+                </fieldset>
+            }
+        </div>
     </body>
 </html>
