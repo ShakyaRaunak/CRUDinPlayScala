@@ -9,7 +9,7 @@ GET         /                    controllers.Application.index
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
 
 # Registration
-POST        /signup              controllers.UserController.createNewUser
+POST        /signup              controllers.UserController.createUser
 
 # Login
 POST        /signin              controllers.UserController.authenticate

@@ -35,7 +35,7 @@ object UserController extends Controller {
   /**
    * Create a new User instance
    */
-  def createNewUser = Action {
+  def createUser = Action {
     implicit request =>
       signUpForm.bindFromRequest.fold(
         errors => BadRequest(html.home.home("Errors")),
@@ -64,7 +64,7 @@ object UserController extends Controller {
   /**
    * Update the existing User instance
    */
-  def updateNewUser(user: User): User = {
+  def updateUser(user: User): User = {
     user
   }
 
