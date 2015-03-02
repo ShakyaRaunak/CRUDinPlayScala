@@ -1,9 +1,5 @@
 @(message: String)
 
-Welcome to home!
-Result:
-@message
-
     @*
     @(user: User)
 
@@ -35,5 +31,8 @@ Result:
             <li ng-class="{active: selectedItem == 'users'}"><a ng-click="selectedItem = 'users'">Users</a></li>
             <li ng-class="{active: selectedItem == 'contact'}"><a ng-click="selectedItem = 'contact'">Contact</a></li>
         </ul>
+
+        Welcome to home!
+        <span class="label label-default">@message</span>
     </body>
 </html>
