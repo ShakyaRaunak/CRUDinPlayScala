@@ -32,17 +32,13 @@ object UserController extends Controller {
     )(SignInData.apply)(SignInData.unapply)
   )
 
-  def form = Action {
-    Ok(html.register.form(signUpForm))
-  }
-
   /**
    * Create a new User instance
    */
   def createNewUser = Action {
     implicit request =>
       signUpForm.bindFromRequest.fold(
-        errors => BadRequest(html.register.form(errors)),
+        errors => BadRequest(html.home.home("Errors")),
         user => {
           DB.withConnection {
             implicit c =>
@@ -60,7 +56,7 @@ object UserController extends Controller {
                 'password -> user.password
               ).executeUpdate()
           }
-          Ok(html.register.summary(user))
+          Ok(html.home.home("New user created!"))
         }
       )
   }
@@ -72,14 +68,13 @@ object UserController extends Controller {
     user
   }
 
-
   /**
    * Authenticate a User.
    */
   def authenticate = Action {
     implicit request =>
       signInForm.bindFromRequest.fold(
-        errors => BadRequest(html.login.form(errors)),
+        errors => BadRequest(html.home.home("Errors")),
         signInData =>
           DB.withConnection {
             implicit c =>

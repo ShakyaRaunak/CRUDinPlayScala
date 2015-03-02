@@ -4,12 +4,30 @@ Welcome to home!
 Result:
 @message
 
+    @*
+    @(user: User)
+
+    <p>Your name: @user.firstName @user.lastName</p>
+
+    <p>Email: @user.email</p>
+
+    <p>Phone: @user.phone</p>
+
+    <p>Company: @user.company</p>
+
+    <p>Username: @user.username</p>
+
+    <p>Password: @user.password</p>
+    *@
+
 <html ng-app="myApp">
     <head>
         <title>Dashboard</title>
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.min.css")" type="text/css">
-        <script src="@routes.Assets.at("javascripts/angular-v1.3.14.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/homeController.js")" type="text/javascript"></script>
+
+        <script src="@routes.Assets.at("javascripts/external/angular/angular-v1.3.14.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/controllers/homeController.js")" type="text/javascript"></script>
+
     </head>
     <body ng-controller="HomeController">
         <ul class="nav nav-tabs">
