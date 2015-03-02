@@ -1,6 +1,21 @@
 @(message: String)
 
 Welcome to home!
-
 Result:
 @message
+
+<html ng-app="myApp">
+    <head>
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.min.css")" type="text/css">
+        <script src="@routes.Assets.at("javascripts/angular-v1.3.14.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/homeController.js")" type="text/javascript"></script>
+    </head>
+    <body ng-controller="HomeController">
+        <ul class="nav nav-tabs">
+            <li ng-class="{active: selectedItem == 'dashboard'}"><a ng-click="selectedItem = 'dashboard'">Dashboard</a></li>
+            <li ng-class="{active: selectedItem == 'users'}"><a ng-click="selectedItem = 'users'">Users</a></li>
+            <li ng-class="{active: selectedItem == 'contact'}"><a ng-click="selectedItem = 'contact'">Contact</a></li>
+        </ul>
+    </body>
+</html>

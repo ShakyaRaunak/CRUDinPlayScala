@@ -98,8 +98,9 @@ object UserController extends Controller {
               }
               if (count == 1) {
                 Ok(html.home.home("Logged in"))
+              } else {
+                Ok(html.home.home("No"))
               }
-              Ok(html.home.home("No"))
           }
       )
   }

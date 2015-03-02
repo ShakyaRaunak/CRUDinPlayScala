@@ -2,3 +2,8 @@ This is your new Play 2.1 application
 =====================================
 
 This file will be packaged with your application, when using `play dist`.
+
+Tasks:
+-> Modal working for Learn more, SignUp features
+-> View Details
+-> Home page
