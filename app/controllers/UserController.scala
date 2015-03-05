@@ -74,7 +74,7 @@ object UserController extends Controller {
   def authenticate = Action {
     implicit request =>
       signInForm.bindFromRequest.fold(
-        errors => BadRequest(html.home.home("Errors")),
+        errors => Redirect(routes.Application.index), //BadRequest(html.home.home("Errors")),
         signInData =>
           DB.withConnection {
             implicit c =>
@@ -94,7 +94,7 @@ object UserController extends Controller {
               if (count == 1) {
                 Ok(html.home.home("Logged in"))
               } else {
-                Ok(html.home.home("No"))
+                Redirect(routes.Application.index)
               }
           }
       )
