@@ -1,4 +1,4 @@
-@(editForm: Form[EditForm], users: List[(Int, String, String, String, String, String, String)])
+@(editForm: Form[EditForm], users: List[(Int, String, String, String, String, String, String)])(implicit session: play.api.mvc.Session)
 @*
 @(user: User)
 
@@ -14,6 +14,12 @@
 
 <p>Password: @user.password</p>
 *@
+
+@if(!session.get("user")){
+    play.api.mvc.Results.Redirect(@routes.Application.index)
+}else{
+    @*<li><a href="@controllers.routes.General.logout">Logout</a></li>*@
+
 <html ng-app="myApp">
     <head>
         <title>Dashboard</title>
@@ -63,6 +69,7 @@
                     Contact</a></li>
                 @*<li class="pull-right"><a href="">
                     <i class="glyphicon glyphicon-cog"></i></a></li>*@
+                <li class="pull-right"><a href="">Logged in as: @session.get("user")</a></li>
             </ul>
 
             <div class="">
@@ -194,3 +201,5 @@
 
     </body>
 </html>
+
+}
