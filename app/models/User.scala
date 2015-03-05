@@ -13,6 +13,10 @@ case class User(
                  password: String
                  )
 
+case class SignInForm(email: String, password: String)
+
+case class EditForm(id: Int, firstName: String, lastName: String, email: String, phone: String, company: String)
+
 object User {
 
   /**

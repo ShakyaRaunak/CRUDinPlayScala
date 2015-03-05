@@ -3,18 +3,20 @@
 # ~~~~
 
 # Home page
-GET         /                    controllers.Application.index
+GET         /                               controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file                   controllers.Assets.at(path="/public", file)
 
 # Signup
-POST        /signup              controllers.UserController.create
+POST        /signup                         controllers.UserController.create
 
 # Signin
-POST        /signin              controllers.UserController.authenticate
+POST        /signin                         controllers.UserController.authenticate
 
 # User
-GET         /dashboard           controllers.UserController.list
-GET         /users               controllers.UserController.list
-GET         /settings            controllers.UserController.list
+GET         /dashboard                      controllers.UserController.list
+GET         /users                          controllers.UserController.list
+GET         /settings                       controllers.UserController.list
+POST        /user/update                    controllers.UserController.update
+GET         /user/delete/$id<[0-9]+>        controllers.UserController.delete(id: Long)

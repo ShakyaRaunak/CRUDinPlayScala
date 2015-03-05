@@ -26,11 +26,22 @@ object UserController extends Controller {
     )(User.apply)(User.unapply)
   )
 
-  val signInForm: Form[SignInData] = Form(
+  val signInForm: Form[SignInForm] = Form(
     mapping(
       "email" -> email,
       "password" -> text
-    )(SignInData.apply)(SignInData.unapply)
+    )(SignInForm.apply)(SignInForm.unapply)
+  )
+
+  val editForm: Form[EditForm] = Form(
+    mapping(
+      "id" -> number,
+      "firstName" -> text,
+      "lastName" -> text,
+      "email" -> text,
+      "phone" -> text,
+      "company" -> text
+    )(EditForm.apply)(EditForm.unapply)
   )
 
   /**
@@ -77,16 +88,61 @@ object UserController extends Controller {
         )
         val users: List[(Int, String, String, String, String, String, String)] = sqlQuery.as(int("id") ~ str("firstName") ~ str("lastName") ~ str("email") ~ str("phone") ~ str("company") ~ str("username")
           map (flatten) *).toList
-        Ok(html.home.home(users))
+        Ok(html.home.home(editForm, users))
     }
   }
 
   /**
    * Update the existing User instance
    */
-  def update(user: User): User = {
-    user
+  def update = Action {
+    implicit request =>
+      editForm.bindFromRequest.fold(
+        errors => Redirect(routes.UserController.list), //BadRequest(html.home.home("Errors")),
+        user => {
+          DB.withConnection {
+            implicit c =>
+              SQL(
+                """
+                UPDATE TABLE User SET firstName = {firstName},
+                            lastName = {lastName},
+                            email = {email},
+                            phone = {phone},
+                            company = {company} WHERE id = {id}
+                """
+              ).on(
+                'id -> user.id,
+                'firstName -> user.firstName,
+                'lastName -> user.lastName,
+                'email -> user.email,
+                'phone -> user.phone,
+                'company -> user.company
+              ).executeUpdate()
+          }
+          //Ok(html.home.home("New user created!"))
+          Redirect(routes.UserController.list)
+        }
+      )
+
   }
+
+  /**
+   * Delete the existing User instance
+   */
+  def delete(id: Long) = Action {
+    DB.withConnection {
+      implicit c =>
+        SQL(
+          """
+            DELETE FROM User WHERE id = {id}
+          """
+        ).on(
+          'id -> id
+        ).execute()
+    }
+    Redirect(routes.UserController.list)
+  }
+
 
   /**
    * Authenticate a User.
@@ -130,7 +186,7 @@ object UserController extends Controller {
   /**
    *
    */
-  def getSettings() {
+  def getSettings(id: Long) {
 
   }
 

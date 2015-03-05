@@ -1,4 +1,4 @@
-@(users: List[(Int, String, String, String, String, String, String)])
+@(editForm: Form[EditForm], users: List[(Int, String, String, String, String, String, String)])
 @*
 @(user: User)
 
@@ -20,7 +20,9 @@
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.min.css")" type="text/css">
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")" type="text/css">
 
+        <script src="@routes.Assets.at("javascripts/external/jquery/jquery-1.11.2.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/external/angular/angular-v1.3.14.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/external/bootstrap/modal.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/controllers/homeController.js")" type="text/javascript"></script>
 
     </head>
@@ -72,10 +74,77 @@
                                 <td>@company</td>
                                 <td>@username</td>
                                 <td>
-                                    <span class="ic-edit" title="Edit"><i class="glyphicon glyphicon-pencil"></i></span>
-                                    <span class="ic-delete" title="Delete"><i class="glyphicon glyphicon-trash"></i></span>
+                                    <a role="button" class="ic-edit" data-toggle="modal" data-target="#UpdateUserModal" title="Edit">
+                                        <i class="glyphicon glyphicon-pencil"></i></a>
+                                    <a href="/user/delete/@id" class="ic-delete" title="Delete"><i class="glyphicon glyphicon-trash"></i></a>
                                 </td>
                             </tr>
+
+
+
+                                <!-- START Update User Modal -->
+                            <div class="modal fade" id="UpdateUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Edit user</h4>
+                                        </div>
+
+                                        <form class="form-horizontal" method="POST">
+
+                                            <div class="modal-body">
+
+                                            @helper.form(action = routes.UserController.update) {
+                                                <input type="hidden" name="id" value="@id">
+                                                @helper.input(editForm("First Name")) { (id, name, value, args) =>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="firstName" value="@firstName" class="form-control" id="firstName" placeholder="First Name">
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @helper.input(editForm("Last Name")) { (id, name, value, args) =>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="lastName" value="@lastName" class="form-control" id="lastName" placeholder="Last Name">
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @helper.input(editForm("Email")) { (id, name, value, args) =>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-9">
+                                                            <input type="email" name="email" value="@email" class="form-control" id="email" placeholder="Email">
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @helper.input(editForm("Phone")) { (id, name, value, args) =>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="phone" value="@phone" class="form-control" id="phone" placeholder="Phone">
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @helper.input(editForm("Company")) { (id, name, value, args) =>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="company" value="@company" class="form-control" id="company" placeholder="Company">
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                            }
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                                <!-- END Update User Modal -->
                         }
                     }
                     </tbody>

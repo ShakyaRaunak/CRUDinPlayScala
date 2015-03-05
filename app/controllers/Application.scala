@@ -3,7 +3,7 @@ package controllers
 import play.api._
 import play.api.mvc._
 import play.api.data.Form
-import models.{SignInData, User}
+import models.{SignInForm, User}
 import play.api.data.Forms._
 
 object Application extends Controller {
@@ -20,11 +20,11 @@ object Application extends Controller {
     )(User.apply)(User.unapply)
   )
 
-  val signInForm: Form[SignInData] = Form(
+  val signInForm: Form[SignInForm] = Form(
     mapping(
       "email" -> email,
       "password" -> text
-    )(SignInData.apply)(SignInData.unapply)
+    )(SignInForm.apply)(SignInForm.unapply)
   )
 
   def index = Action {
