@@ -18,6 +18,7 @@
     <head>
         <title>Dashboard</title>
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.min.css")" type="text/css">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")" type="text/css">
 
         <script src="@routes.Assets.at("javascripts/external/angular/angular-v1.3.14.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/controllers/homeController.js")" type="text/javascript"></script>
@@ -30,19 +31,23 @@
                 <li ng-class="{active: selectedItem == 'dashboard'}"><a href="" ng-click="selectedItem = 'dashboard'">
                     Dashboard</a></li>
                 <li ng-class="{active: selectedItem == 'users'}"><a href="@routes.UserController.getUsers" ng-click="selectedItem = 'users'">
-                    Users</a></li>
+                    Users <span class="badge">@users.size</span></a></li>
                 <li ng-class="{active: selectedItem == 'contact'}"><a href="" ng-click="selectedItem = 'contact'">
                     Contact</a></li>
+                <li class="pull-right"><a href="">
+                    <i class="glyphicon glyphicon-cog"></i></a></li>
             </ul>
 
-            <div>
+            <div class="">
                 <h3>Welcome to home!</h3>
+                <img src="@routes.Assets.at("images/avatar5.jpg")" alt="" class="img-circle profile-img">
             </div>
 
             <br/>
 
-            <div class="">
-                <table class="table">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Users' Information</div>
+                <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -52,12 +57,13 @@
                             <th>Phone</th>
                             <th>Company</th>
                             <th>User Name</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     @users.map {
                         case (id, firstName, lastName, email, phone, company, username) => {
-                            <tr>
+                            <tr class="">
                                 <td>@id</td>
                                 <td>@firstName</td>
                                 <td>@lastName</td>
@@ -65,12 +71,17 @@
                                 <td>@phone</td>
                                 <td>@company</td>
                                 <td>@username</td>
+                                <td>
+                                    <span class="ic-edit" title="Edit"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    <span class="ic-delete" title="Delete"><i class="glyphicon glyphicon-trash"></i></span>
+                                </td>
                             </tr>
                         }
                     }
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     </body>
 </html>

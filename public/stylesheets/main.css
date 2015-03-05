@@ -1,0 +1,16 @@
+.profile-img {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.ic-edit {
+    color: green;
+    margin: 0px 7px;
+    cursor: pointer;
+}
+
+.ic-delete {
+    color: red;
+    margin: 0px 7px;
+    cursor: pointer;
+}

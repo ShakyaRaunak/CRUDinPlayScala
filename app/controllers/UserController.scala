@@ -120,4 +120,18 @@ object UserController extends Controller {
       )
   }
 
+  /**
+   *
+   */
+  def getBasicInformation() {
+
+  }
+
+  /**
+   *
+   */
+  def getSettings() {
+
+  }
+
 }
