@@ -13,3 +13,6 @@ POST        /signup              controllers.UserController.createUser
 
 # Login
 POST        /signin              controllers.UserController.authenticate
+
+# User
+GET         /users               controllers.UserController.getUsers

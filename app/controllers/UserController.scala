@@ -10,6 +10,7 @@ import play.api.Play.current
 import views._
 import models._
 import play.api.db.DB
+import anorm.SqlParser._
 
 object UserController extends Controller {
 
@@ -38,7 +39,7 @@ object UserController extends Controller {
   def createUser = Action {
     implicit request =>
       signUpForm.bindFromRequest.fold(
-        errors => BadRequest(html.home.home("Errors")),
+        errors => Redirect(routes.Application.index), //BadRequest(html.home.home("Errors")),
         user => {
           DB.withConnection {
             implicit c =>
@@ -56,9 +57,28 @@ object UserController extends Controller {
                 'password -> user.password
               ).executeUpdate()
           }
-          Ok(html.home.home("New user created!"))
+          //Ok(html.home.home("New user created!"))
+          Redirect(routes.UserController.getUsers)
         }
       )
+  }
+
+  /**
+   * Retrieve existing User instances
+   */
+  def getUsers = Action {
+    DB.withConnection {
+      implicit c =>
+      //Create an SQL query
+        val sqlQuery = SQL(
+          """
+          SELECT * FROM User;
+          """
+        )
+        val users: List[(Int, String, String, String, String, String, String)] = sqlQuery.as(int("id") ~ str("firstName") ~ str("lastName") ~ str("email") ~ str("phone") ~ str("company") ~ str("username")
+          map (flatten) *).toList
+        Ok(html.home.home(users))
+    }
   }
 
   /**
@@ -92,7 +112,7 @@ object UserController extends Controller {
                 throw new IllegalStateException("More than one user with same email found!!!")
               }
               if (count == 1) {
-                Ok(html.home.home("Logged in"))
+                Redirect(routes.UserController.getUsers)
               } else {
                 Redirect(routes.Application.index)
               }

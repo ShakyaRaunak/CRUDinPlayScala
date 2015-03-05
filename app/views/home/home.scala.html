@@ -1,21 +1,19 @@
-@(message: String)
+@(users: List[(Int, String, String, String, String, String, String)])
+@*
+@(user: User)
 
-    @*
-    @(user: User)
+<p>Your name: @user.firstName @user.lastName</p>
 
-    <p>Your name: @user.firstName @user.lastName</p>
+<p>Email: @user.email</p>
 
-    <p>Email: @user.email</p>
+<p>Phone: @user.phone</p>
 
-    <p>Phone: @user.phone</p>
+<p>Company: @user.company</p>
 
-    <p>Company: @user.company</p>
+<p>Username: @user.username</p>
 
-    <p>Username: @user.username</p>
-
-    <p>Password: @user.password</p>
-    *@
-
+<p>Password: @user.password</p>
+*@
 <html ng-app="myApp">
     <head>
         <title>Dashboard</title>
@@ -26,13 +24,53 @@
 
     </head>
     <body ng-controller="HomeController">
-        <ul class="nav nav-tabs">
-            <li ng-class="{active: selectedItem == 'dashboard'}"><a ng-click="selectedItem = 'dashboard'">Dashboard</a></li>
-            <li ng-class="{active: selectedItem == 'users'}"><a ng-click="selectedItem = 'users'">Users</a></li>
-            <li ng-class="{active: selectedItem == 'contact'}"><a ng-click="selectedItem = 'contact'">Contact</a></li>
-        </ul>
+        <div class="container">
 
-        Welcome to home!
-        <span class="label label-default">@message</span>
+            <ul class="nav nav-tabs">
+                <li ng-class="{active: selectedItem == 'dashboard'}"><a href="" ng-click="selectedItem = 'dashboard'">
+                    Dashboard</a></li>
+                <li ng-class="{active: selectedItem == 'users'}"><a href="@routes.UserController.getUsers" ng-click="selectedItem = 'users'">
+                    Users</a></li>
+                <li ng-class="{active: selectedItem == 'contact'}"><a href="" ng-click="selectedItem = 'contact'">
+                    Contact</a></li>
+            </ul>
+
+            <div>
+                <h3>Welcome to home!</h3>
+            </div>
+
+            <br/>
+
+            <div class="">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Company</th>
+                            <th>User Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @users.map {
+                        case (id, firstName, lastName, email, phone, company, username) => {
+                            <tr>
+                                <td>@id</td>
+                                <td>@firstName</td>
+                                <td>@lastName</td>
+                                <td>@email</td>
+                                <td>@phone</td>
+                                <td>@company</td>
+                                <td>@username</td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </body>
 </html>
