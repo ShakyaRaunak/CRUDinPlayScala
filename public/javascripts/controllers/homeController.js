@@ -2,6 +2,6 @@ var app = angular.module('myApp', []);
 
 app.controller('HomeController', function ($scope) {
 
-    $scope.selectedItem = 'dashboard';
+    $scope.selectedItem = 'users';
 
 });
