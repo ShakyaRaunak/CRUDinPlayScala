@@ -36,7 +36,7 @@ object UserController extends Controller {
   /**
    * Create a new User instance
    */
-  def createUser = Action {
+  def create = Action {
     implicit request =>
       signUpForm.bindFromRequest.fold(
         errors => Redirect(routes.Application.index), //BadRequest(html.home.home("Errors")),
@@ -58,7 +58,7 @@ object UserController extends Controller {
               ).executeUpdate()
           }
           //Ok(html.home.home("New user created!"))
-          Redirect(routes.UserController.getUsers)
+          Redirect(routes.UserController.list)
         }
       )
   }
@@ -66,7 +66,7 @@ object UserController extends Controller {
   /**
    * Retrieve existing User instances
    */
-  def getUsers = Action {
+  def list = Action {
     DB.withConnection {
       implicit c =>
       //Create an SQL query
@@ -84,7 +84,7 @@ object UserController extends Controller {
   /**
    * Update the existing User instance
    */
-  def updateUser(user: User): User = {
+  def update(user: User): User = {
     user
   }
 
@@ -112,7 +112,7 @@ object UserController extends Controller {
                 throw new IllegalStateException("More than one user with same email found!!!")
               }
               if (count == 1) {
-                Redirect(routes.UserController.getUsers)
+                Redirect(routes.UserController.list)
               } else {
                 Redirect(routes.Application.index)
               }

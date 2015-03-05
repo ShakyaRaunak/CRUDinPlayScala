@@ -30,7 +30,7 @@
             <ul class="nav nav-tabs">
                 <li ng-class="{active: selectedItem == 'dashboard'}"><a href="" ng-click="selectedItem = 'dashboard'">
                     Dashboard</a></li>
-                <li ng-class="{active: selectedItem == 'users'}"><a href="@routes.UserController.getUsers" ng-click="selectedItem = 'users'">
+                <li ng-class="{active: selectedItem == 'users'}"><a href="@routes.UserController.list" ng-click="selectedItem = 'users'">
                     Users <span class="badge">@users.size</span></a></li>
                 <li ng-class="{active: selectedItem == 'contact'}"><a href="" ng-click="selectedItem = 'contact'">
                     Contact</a></li>

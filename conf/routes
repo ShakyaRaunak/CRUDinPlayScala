@@ -9,12 +9,12 @@ GET         /                    controllers.Application.index
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
 
 # Signup
-POST        /signup              controllers.UserController.createUser
+POST        /signup              controllers.UserController.create
 
 # Signin
 POST        /signin              controllers.UserController.authenticate
 
 # User
-GET         /dashboard           controllers.UserController.getUsers
-GET         /users               controllers.UserController.getUsers
-GET         /settings            controllers.UserController.getUsers
+GET         /dashboard           controllers.UserController.list
+GET         /users               controllers.UserController.list
+GET         /settings            controllers.UserController.list
