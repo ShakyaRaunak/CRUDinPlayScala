@@ -14,192 +14,210 @@
 
 <p>Password: @user.password</p>
 *@
-
-@if(!session.get("user")){
+@if(!session.get("user")) {
     play.api.mvc.Results.Redirect(@routes.Application.index)
-}else{
+} else {
     @*<li><a href="@controllers.routes.General.logout">Logout</a></li>*@
+    <html ng-app="myApp">
+        <head>
+            <title>Dashboard</title>
+            <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.min.css")" type="text/css">
+            <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")" type="text/css">
 
-<html ng-app="myApp">
-    <head>
-        <title>Dashboard</title>
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-3.3.2/css/bootstrap.min.css")" type="text/css">
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")" type="text/css">
+            <script src="@routes.Assets.at("javascripts/external/jquery/jquery-1.11.2.min.js")" type="text/javascript"></script>
+            <script src="@routes.Assets.at("javascripts/external/angular/angular-v1.3.14.min.js")" type="text/javascript"></script>
+            <script src="@routes.Assets.at("javascripts/external/bootstrap/modal.js")" type="text/javascript"></script>
+            <script src="@routes.Assets.at("javascripts/external/bootstrap/dropdown.js")" type="text/javascript"></script>
+            <script src="@routes.Assets.at("javascripts/controllers/homeController.js")" type="text/javascript"></script>
 
-        <script src="@routes.Assets.at("javascripts/external/jquery/jquery-1.11.2.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/external/angular/angular-v1.3.14.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/external/bootstrap/modal.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/controllers/homeController.js")" type="text/javascript"></script>
+        </head>
+        <body ng-controller="HomeController">
+            <div class="container">
 
-    </head>
-    <body ng-controller="HomeController">
-        <div class="container">
-
-            @*<nav class="navbar navbar-inverse navbar-fixed-top">
+                @*<nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a href="#" class="navbar-brand">Project name</a>
-                    </div>
-                    <div class="navbar-collapse collapse" id="navbar">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Settings</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Help</a></li>
-                        </ul>
-                        <form class="navbar-form navbar-right">
-                            <input type="text" placeholder="Search..." class="form-control">
-                        </form>
-                    </div>
+                <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">Project name</a>
                 </div>
-            </nav>*@
+                <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                <input type="text" placeholder="Search..." class="form-control">
+                </form>
+                </div>
+                </div>
+                </nav>*@
 
-            <ul class="nav nav-pills">
-                <li ng-class="{active: selectedItem == 'dashboard'}"><a href="" ng-click="selectedItem = 'dashboard'">
-                    Dashboard</a></li>
-                <li ng-class="{active: selectedItem == 'users'}"><a href="@routes.UserController.list" ng-click="selectedItem = 'users'">
-                    Users <span class="badge">@users.size</span></a></li>
-                <li ng-class="{active: selectedItem == 'contact'}"><a href="" ng-click="selectedItem = 'contact'">
-                    Contact</a></li>
-                @*<li class="pull-right"><a href="">
+                <ul class="nav nav-pills" style="display : inline-block ;">
+                    <li ng-class="{active: selectedItem == 'dashboard'}"><a href="" ng-click="selectedItem = 'dashboard'">
+                        Dashboard</a></li>
+                    <li ng-class="{active: selectedItem == 'profile'}"><a href="" ng-click="selectedItem = 'profile'">
+                        Profile</a></li>
+                    <li ng-class="{active: selectedItem == 'users'}"><a href="@routes.UserController.list" ng-click="selectedItem = 'users'">
+                        Users <span class="badge">@users.size</span></a></li>
+                    <li ng-class="{active: selectedItem == 'contact'}"><a href="" ng-click="selectedItem = 'contact'">
+                        Contact</a></li>
+                    @*<li class="pull-right"><a href="">
                     <i class="glyphicon glyphicon-cog"></i></a></li>*@
-                <li class="pull-right"><a href="">Logged in as: @session.get("user")</a></li>
-            </ul>
+                </ul>
 
-            <div class="">
-                <h3>Welcome to home!</h3>
-                <img src="@routes.Assets.at("images/avatar5.jpg")" alt="" class="img-circle profile-img">
-            </div>
+                <div class="pull-right" >
+                    <span class="dropdown pull-right">
+                        Logged in as:
+                        <button id="dLabel" type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @session.get("user") &nbsp; @*<i class="glyphicon glyphicon-cog"></i>*@ <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li><a href="#">Activity log</a></li>
+                            <li><a href="#">News Feed Preferences</a></li>
+                            <li><a href="#">Manage Account</a></li>
+                            <li><a href="#">Sign out</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Report a Problem</a></li>
+                        </ul>
+                    </span>
+                </div>
 
-            <br/>
+                <div class="clearfix">
+                    <h3>Welcome to home!</h3>
+                    <img src="@routes.Assets.at("images/avatar5.jpg")" alt="" class="img-circle profile-img">
+                </div>
 
-            <div class="panel panel-primary">
-                <div class="panel-heading">Users' Information</div>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Company</th>
-                            <th>User Name</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @users.map {
-                        case (id, firstName, lastName, email, phone, company, username) => {
-                            <tr class="">
-                                <td>@id</td>
-                                <td>@firstName</td>
-                                <td>@lastName</td>
-                                <td>@email</td>
-                                <td>@phone</td>
-                                <td>@company</td>
-                                <td>@username</td>
-                                <td>
-                                    <a role="button" class="ic-edit" data-toggle="modal" data-target="#UpdateUserModal" title="Edit">
-                                        <i class="glyphicon glyphicon-pencil"></i></a>
-                                    <a role="button" class="ic-delete" data-toggle="modal" data-target="#DeleteUserModal" title="Delete">
-                                        <i class="glyphicon glyphicon-trash"></i></a>
-                                </td>
+                <br/>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Users' Information</div>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Company</th>
+                                <th>User Name</th>
+                                <th>Actions</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                        @users.map {
+                            case (id, firstName, lastName, email, phone, company, username) => {
+                                <tr class="">
+                                    <td>@id</td>
+                                    <td>@firstName</td>
+                                    <td>@lastName</td>
+                                    <td>@email</td>
+                                    <td>@phone</td>
+                                    <td>@company</td>
+                                    <td>@username</td>
+                                    <td>
+                                        <a role="button" class="ic-edit" data-toggle="modal" data-target="#UpdateUserModal" title="Edit">
+                                            <i class="glyphicon glyphicon-pencil"></i></a>
+                                        <a role="button" class="ic-delete" data-toggle="modal" data-target="#DeleteUserModal" title="Delete">
+                                            <i class="glyphicon glyphicon-trash"></i></a>
+                                    </td>
+                                </tr>
 
-                                <!-- START Delete User Modal -->
-                            <div class="modal fade" id="DeleteUserModal" tabindex="-1" role="dialog" aria-labelledby="myDeleteUserModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Delete user</h4>
-                                        </div>
+                                    <!-- START Delete User Modal -->
+                                <div class="modal fade" id="DeleteUserModal" tabindex="-1" role="dialog" aria-labelledby="myDeleteUserModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Delete user</h4>
+                                            </div>
 
-                                        <div class="modal-body">
+                                            <div class="modal-body">
                         Do you really want to delete this user?
-                                        </div>
+                                            </div>
 
-                                        <div class="modal-footer">
-                                            <button type="reset" class="btn btn-default" data-dismiss="modal">No</button>
-                                            <a role="button" href="/user/delete/@id" class="btn btn-danger">Yes</a>
+                                            <div class="modal-footer">
+                                                <button type="reset" class="btn btn-default" data-dismiss="modal">No</button>
+                                                <a role="button" href="/user/delete/@id" class="btn btn-danger">Yes</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                                <!-- END Delete User Modal -->
+                                    <!-- END Delete User Modal -->
+                            }
                         }
-                    }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
 
-            <!-- START Update User Modal -->
-        <div class="modal fade" id="UpdateUserModal" tabindex="-1" role="dialog" aria-labelledby="myUpdateUserModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Edit user</h4>
-                    </div>
+                <!-- START Update User Modal -->
+            <div class="modal fade" id="UpdateUserModal" tabindex="-1" role="dialog" aria-labelledby="myUpdateUserModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Edit user</h4>
+                        </div>
 
-                    <div class="modal-body">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="firstName" class="col-sm-3 control-label">First Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="firstName" class="form-control" id="firstName" placeholder="First Name">
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="firstName" class="form-control" id="firstName" placeholder="First Name">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="lastName" class="col-sm-3 control-label">Last Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Last Name">
+                                <div class="form-group">
+                                    <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Last Name">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="email" class="col-sm-3 control-label">Email</label>
-                                <div class="col-sm-9">
-                                    <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-3 control-label">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="phone" class="col-sm-3 control-label">Phone</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone">
+                                <div class="form-group">
+                                    <label for="phone" class="col-sm-3 control-label">Phone</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="company" class="col-sm-3 control-label">Company</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="company" class="form-control" id="company" placeholder="Company">
+                                <div class="form-group">
+                                    <label for="company" class="col-sm-3 control-label">Company</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="company" class="form-control" id="company" placeholder="Company">
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-            <!-- END Update User Modal -->
+                <!-- END Update User Modal -->
 
-    </body>
-</html>
+        </body>
+    </html>
 
 }
