@@ -12,7 +12,10 @@ GET         /assets/*file                   controllers.Assets.at(path="/public"
 POST        /signup                         controllers.UserController.create
 
 # Signin
-POST        /signin                         controllers.UserController.authenticate
+POST        /signin                         controllers.UserController.signin
+
+# Signin
+GET        /signout                         controllers.UserController.signout
 
 # User
 GET         /dashboard                      controllers.UserController.list

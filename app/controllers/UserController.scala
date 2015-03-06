@@ -153,9 +153,9 @@ object UserController extends Controller {
 
 
   /**
-   * Authenticate a User.
+   * Sign in a User
    */
-  def authenticate = Action {
+  def signin = Action {
     implicit request =>
       signInForm.bindFromRequest.fold(
         errors => Redirect(routes.Application.index), //BadRequest(html.home.home("Errors")),
@@ -182,6 +182,13 @@ object UserController extends Controller {
               }
           }
       )
+  }
+
+  /**
+   * Sign out a User
+   */
+  def signout = Action {
+    Redirect(routes.Application.index)
   }
 
   /**
