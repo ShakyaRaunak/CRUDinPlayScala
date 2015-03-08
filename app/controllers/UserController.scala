@@ -77,27 +77,28 @@ object UserController extends Controller {
   /**
    * Retrieve existing User instances
    */
-  def list = Action { implicit request =>
-    if (request.session.get("user") == null) {
-      Redirect(routes.Application.index)
-    }
+  def list = Action {
+    implicit request =>
+      if (request.session.get("user") == null) {
+        Redirect(routes.Application.index)
+      }
 
-    DB.withConnection {
-      implicit c =>
-      //Create an SQL query
-        val sqlQuery = SQL(
-          """
+      DB.withConnection {
+        implicit c =>
+        //Create an SQL query
+          val sqlQuery = SQL(
+            """
           SELECT * FROM User;
-          """
-        )
-        val users: List[(Int, String, String, String, String, String, String)] = sqlQuery.as(int("id") ~ str("firstName") ~ str("lastName") ~ str("email") ~ str("phone") ~ str("company") ~ str("username")
-          map (flatten) *).toList
-        Ok(html.home.home(editForm, users)).withSession(
-          "user" -> "raunakshakya"
-        ).flashing(
-          "success" -> "Logged in user"
-        )
-    }
+            """
+          )
+          val users: List[(Int, String, String, String, String, String, String)] = sqlQuery.as(int("id") ~ str("firstName") ~ str("lastName") ~ str("email") ~ str("phone") ~ str("company") ~ str("username")
+            map (flatten) *).toList
+          Ok(html.home.home(editForm, users)).withSession(
+            "user" -> "raunakshakya"
+          ).flashing(
+            "success" -> "Logged in user"
+          )
+      }
   }
 
   /**
