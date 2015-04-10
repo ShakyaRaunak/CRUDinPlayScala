@@ -8,6 +8,10 @@ GET         /                               controllers.Application.index
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                   controllers.Assets.at(path="/public", file)
 
+# Authentication
+POST        /login                          controllers.Application.authenticate
+#GET         /logout                         controllers.Application.logout
+
 # Signup
 POST        /signup                         controllers.UserController.create
 
@@ -15,7 +19,7 @@ POST        /signup                         controllers.UserController.create
 POST        /signin                         controllers.UserController.signin
 
 # Signin
-GET        /signout                         controllers.UserController.signout
+GET         /signout                        controllers.UserController.signout
 
 # User
 GET         /dashboard                      controllers.UserController.list

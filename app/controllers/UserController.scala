@@ -93,7 +93,7 @@ object UserController extends Controller {
           )
           val users: List[(Int, String, String, String, String, String, String)] = sqlQuery.as(int("id") ~ str("firstName") ~ str("lastName") ~ str("email") ~ str("phone") ~ str("company") ~ str("username")
             map (flatten) *).toList
-          Ok(html.home.home(editForm, users)).withSession(
+          Ok(html.home.home(editForm, signUpForm, users)).withSession(
             "user" -> "raunakshakya"
           ).flashing(
             "success" -> "Logged in user"
@@ -150,6 +150,24 @@ object UserController extends Controller {
         ).execute()
     }
     Redirect(routes.UserController.list)
+  }
+
+
+  /**
+   * Authenticate a User.
+   */
+  def authenticate(email: String, password: String): Option[User] = {
+    DB.withConnection { implicit connection =>
+      SQL(
+        """
+         select * from User where
+         email = {email} and password = {password}
+        """
+      ).on(
+        'email -> email,
+        'password -> password
+      ).as(User.simple.singleOpt)
+    }
   }
 
 
